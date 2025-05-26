@@ -1,0 +1,99 @@
+<UserControl x:Class="DemoCenter.Views.SpinEditorPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:mxdg="https://schemas.eremexcontrols.net/avalonia/datagrid"
+             xmlns:mxi="https://schemas.eremexcontrols.net/avalonia/icons"
+             xmlns:vm="using:DemoCenter.ViewModels"
+             d:DesignHeight="500"
+             d:DesignWidth="800"
+             x:DataType="vm:SpinEditorPageViewModel"
+             mc:Ignorable="d">
+	<Design.DataContext>
+        <vm:SpinEditorPageViewModel />
+	</Design.DataContext>
+
+    <Grid ColumnDefinitions="*, 250">
+        <ContentControl x:Name="DemoControl" Classes="DemoUserControl">
+            <Grid  RowDefinitions="Auto, 60, Auto"
+              HorizontalAlignment="Center"
+              Margin="30">
+                <Grid ColumnDefinitions="Auto, 26, Auto" HorizontalAlignment="Center">
+                    <mxe:SpinEditor x:Name="SpinEditor" Width="200" Value="7"
+                                Maximum="{Binding #MaximumValueEditor.Value}"
+                                Minimum="{Binding #MinimumValueEditor.Value}"
+                                Increment="{Binding #IncrementValueEditor.Value}"
+                                IsEnabled="{Binding #IsEnabledSelector.IsChecked}"
+                                ShowEditorButtons="{Binding #ShowButtonsSelector.IsChecked}"
+                                Mask="{Binding #MaskEditor.EditorValue}"/>
+
+                    <mxe:SpinEditor Grid.Column="2" x:Name="PrefixSuffixSpinEditor" Width="200" Value="8.5"
+                            Maximum="{Binding #MaximumValueEditor.Value}"
+                            Minimum="{Binding #MinimumValueEditor.Value}"
+                            Increment="{Binding #IncrementValueEditor.Value}"
+                            Prefix="V=" Suffix="m/s"
+                            IsEnabled="{Binding #IsEnabledSelector.IsChecked}"
+                            ShowEditorButtons="{Binding #ShowButtonsSelector.IsChecked}"
+                            Mask="{Binding #MaskEditor.EditorValue}"/>
+                </Grid>
+            
+            <mxdg:DataGridControl x:Name="materialsGrid"
+                                  Grid.Row="2"
+                                  Width="540"
+                                  ShowGroupPanel="False"
+                                  AllowSorting="False"
+                                  BorderThickness="1"
+                                  EditorButtonShowMode="ShowAlways"
+                                  ItemsSource="{Binding Yachts}">
+                <mxdg:GridColumn FieldName="Name" Width="*" AllowEditing="False" />
+                <mxdg:GridColumn FieldName="Length" Header="Length, ft" Width="*">
+                    <mxdg:GridColumn.EditorProperties>
+                        <mxe:SpinEditorProperties HorizontalContentAlignment="Right"/>
+                    </mxdg:GridColumn.EditorProperties>
+                </mxdg:GridColumn>
+                <mxdg:GridColumn FieldName="MaxSpeed" Width="*" >
+                    <mxdg:GridColumn.EditorProperties>
+                        <mxe:SpinEditorProperties DisplayFormatString="{}{0:N1}" Suffix="knots" HorizontalContentAlignment="Right" Increment="0.5"/>
+                    </mxdg:GridColumn.EditorProperties>
+                </mxdg:GridColumn>
+                <mxdg:GridColumn FieldName="CruisingRange" Width="*" >
+                    <mxdg:GridColumn.EditorProperties>
+                        <mxe:SpinEditorProperties Increment="100" Suffix="miles" HorizontalContentAlignment="Right"/>
+                    </mxdg:GridColumn.EditorProperties>
+                </mxdg:GridColumn>
+            </mxdg:DataGridControl>
+        </Grid>
+        </ContentControl>
+        <!--Options-->
+        <StackPanel Grid.Column="1">
+            <mxe:GroupBox Header="Properties" Classes="PropertiesGroup">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="3*, *">
+                    <mxe:CheckEditor x:Name="IsEnabledSelector" Content="Is Enabled" IsChecked="True" Classes="PropertyEditor"/>
+                    <mxe:CheckEditor Grid.Row="1" x:Name="ShowButtonsSelector" Content="Show Buttons" IsChecked="True" Classes="PropertyEditor"/>
+                    <Label Grid.Row="2" Content="Value" Classes="PropertyLabel"/>
+                    <mxe:TextEditor Grid.Row="3" EditorValue="{Binding #SpinEditor.Value}" Classes="PropertyEditor" HorizontalContentAlignment="Right"/>
+                    <Label Grid.Row="4" Content="Maximum" Classes="PropertyLabel"/>
+                    <mxe:SpinEditor Grid.Row="5" x:Name="MaximumValueEditor" Value="15" Classes="PropertyEditor"/>
+                    <Label Grid.Row="6" Content="Minimum" Classes="PropertyLabel" />
+                    <mxe:SpinEditor Grid.Row="7" x:Name="MinimumValueEditor" Value="-15" Classes="PropertyEditor"/>
+                    <Label Grid.Row="8" Content="Increment" Classes="PropertyLabel"/>
+                    <mxe:SpinEditor Grid.Row="9" x:Name="IncrementValueEditor" Value="1" Classes="PropertyEditor"/>
+                    <Label Grid.Row="10" Content="Mask" Classes="PropertyLabel"/>
+                    <mxe:TextEditor Grid.Row="11" x:Name="MaskEditor" EditorValue="##.##" Classes="PropertyEditor" HorizontalContentAlignment="Right"/>
+                </Grid>
+            </mxe:GroupBox>
+            <mxe:GroupBox Header="Commands" Classes="PropertiesGroup">
+                <Grid ColumnDefinitions="*, 16, *">
+                    <Button Command="{Binding #SpinEditor.DecreaseCommand}" ToolTip.Tip="Decrease" Margin="0,12" HorizontalAlignment="Stretch">
+                        <Image Source="{x:Static mxi:_12.Chevron_Left}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Grid.Column="2"  Command="{Binding #SpinEditor.IncreaseCommand}" ToolTip.Tip="Increase" Margin="0,12" HorizontalAlignment="Stretch">
+                        <Image Source="{x:Static mxi:_12.Chevron_Right}" Width="16" Height="16"/>
+                    </Button>
+                </Grid>
+            </mxe:GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

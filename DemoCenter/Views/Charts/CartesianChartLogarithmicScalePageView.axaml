@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mxc="https://schemas.eremexcontrols.net/avalonia/charts"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:vm="clr-namespace:DemoCenter.ViewModels"
+             x:Class="DemoCenter.Views.CartesianChartLogarithmicScalePageView"
+             x:DataType="vm:CartesianChartLogarithmicScalePageViewModel"
+>
+    <Grid ColumnDefinitions="* 250" RowDefinitions="Auto *">
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="12" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold">Raw Frequency Response</TextBlock>
+
+        <mxc:CartesianChart Grid.Column="0" Grid.Row="1" Classes="DemoChartWithNoOptions" x:Name="DemoControl" SeriesSource="{Binding Series}">
+            <mxc:CartesianChart.SeriesTemplate>
+                <DataTemplate x:DataType="vm:SeriesViewModel">
+                    <mxc:CartesianSeries DataAdapter="{Binding DataAdapter}">
+                        <mxc:CartesianLineSeriesView Color="{Binding Color}" />
+                    </mxc:CartesianSeries>
+                </DataTemplate>
+            </mxc:CartesianChart.SeriesTemplate>
+            
+            <mxc:CartesianChart.AxesX>
+                <mxc:AxisX Title="Frequency">
+                    <mxc:AxisX.ScaleOptions>
+                        <mxc:NumericScaleOptions LogarithmicBase="{Binding AxisX.LogarithmicBase}"
+                                                 LabelFormatter="{Binding FrequencyFormatter}" />
+                    </mxc:AxisX.ScaleOptions>
+                </mxc:AxisX>
+            </mxc:CartesianChart.AxesX>
+            <mxc:CartesianChart.AxesY>
+                <mxc:AxisY Title="Amplitude (dB SPL)">
+                    <mxc:AxisYRange AlwaysShowZeroLevel="False" />
+                </mxc:AxisY>
+            </mxc:CartesianChart.AxesY>
+        </mxc:CartesianChart>
+
+        <StackPanel Grid.Column="1" Grid.RowSpan="2">
+            <mxe:GroupBox Header="Properties" Classes="PropertiesGroup">
+                <mxe:CheckEditor Content="Logarithmic X-Axis" IsChecked="{Binding LogarithmicX}" Classes="PropertyEditor"/>
+            </mxe:GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxdg="https://schemas.eremexcontrols.net/avalonia/datagrid"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:views="using:DemoCenter.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DemoCenter.Views.DataGridGroupingPageView">
+    <UserControl.Resources>
+        <views:NullValueConverter x:Key="nullValueConverter"/>
+        <DataTemplate x:Key="quarterTemplate">
+            <ProgressBar Foreground="{DynamicResource Fill/Accent/Highlighting/Item/Pressed}"
+                         MinWidth="0"
+                         Background="Transparent"
+                         CornerRadius="2"
+                         VerticalAlignment="Stretch"
+                         Margin="1"
+                         Minimum="0" Maximum="100000" ShowProgressText="True" Value="{Binding Value, Converter={StaticResource nullValueConverter}}" />
+        </DataTemplate>
+        <DataTemplate x:Key="totalTemplate">
+            <ProgressBar Foreground="{DynamicResource Fill/Accent/Highlighting/Text}"
+                         MinWidth="0"
+                         Background="Transparent"
+                         CornerRadius="2"
+                         VerticalAlignment="Stretch"
+                         Opacity="1"
+                         Margin="1"
+                         Minimum="0" Maximum="400000" ShowProgressText="True" Value="{Binding Value, Converter={StaticResource nullValueConverter}}" />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid ColumnDefinitions="*, 250">
+        <Border x:Name="DemoControl">
+            <mxdg:DataGridControl x:Name="dataGrid" ItemsSource="{Binding Sales}" AutoGenerateColumns="True" AutoExpandAllGroups="True" AllowEditing="False" GroupCount="1" BorderThickness="0,0,1,0">
+                <mxdg:GridColumn FieldName="Year" SortIndex="0" SortDirection="Descending"/>
+                <mxdg:GridColumn FieldName="Employee" SortIndex="1" Width="200"/>
+                <mxdg:GridColumn FieldName="Quarter1" Width="*" CellTemplate="{StaticResource quarterTemplate}"/>
+                <mxdg:GridColumn FieldName="Quarter2" Width="*" CellTemplate="{StaticResource quarterTemplate}"/>
+                <mxdg:GridColumn FieldName="Quarter3" Width="*" CellTemplate="{StaticResource quarterTemplate}"/>
+                <mxdg:GridColumn FieldName="Quarter4" Width="*" CellTemplate="{StaticResource quarterTemplate}"/>
+                <mxdg:GridColumn FieldName="Total" Width="*" CellTemplate="{StaticResource totalTemplate}"/>
+            </mxdg:DataGridControl>
+        </Border>
+
+        <Border Grid.Column="1">
+            <mxe:GroupBox Header="Properties" Classes="PropertiesGroup">
+                <StackPanel>
+                    <mxe:CheckEditor Content="Show Group Panel" IsChecked="{Binding #dataGrid.ShowGroupPanel}" Classes="PropertyEditor"/>
+                    <mxe:CheckEditor Content="Show Grouped Columns" IsChecked="{Binding #dataGrid.ShowGroupedColumns}" Classes="PropertyEditor"/>
+                </StackPanel>
+            </mxe:GroupBox>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxdg="https://schemas.eremexcontrols.net/avalonia/datagrid"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:data="using:DemoCenter.DemoData"
+			 xmlns:views="using:DemoCenter.Views"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DemoCenter.Views.DataGridLargeDataView">
+	<UserControl.Resources>
+		<views:EnumRadioButtonConverter x:Key="enumRadioButtonConverter"/>
+	</UserControl.Resources>
+
+	<Grid ColumnDefinitions="*, 250">
+		<Border x:Name="DemoControl">
+			<mxdg:DataGridControl ItemsSource="{Binding Items}" ColumnsSource="{Binding Columns}" AutoGenerateColumns="True" BorderThickness="0,0,1,0"
+                                  CustomUnboundColumnData="DataGridControl_CustomUnboundColumnData" PropertyChanged="DataGridControl_PropertyChanged">
+                <mxdg:DataGridControl.ColumnTemplate>
+                    <views:DataGridLargeDataViewColumnTemplate/>
+                </mxdg:DataGridControl.ColumnTemplate>
+			</mxdg:DataGridControl>
+		</Border>
+		<Border Grid.Column="1">
+			<StackPanel>
+				<mxe:GroupBox Header="Item Count" Classes="PropertiesGroup">
+					<StackPanel>
+						<RadioButton Content="100 000" GroupName="ItemsCount" Classes="PropertyEditor"
+									 IsChecked="{Binding SelectedItemsCount, Converter={StaticResource enumRadioButtonConverter}, ConverterParameter=Small}"/>
+						<RadioButton Content="500 000" GroupName="ItemsCount" Classes="PropertyEditor"
+									 IsChecked="{Binding SelectedItemsCount, Converter={StaticResource enumRadioButtonConverter}, ConverterParameter=Medium}"/>
+						<RadioButton Content="1 000 000" GroupName="ItemsCount" Classes="PropertyEditor"
+									 IsChecked="{Binding SelectedItemsCount, Converter={StaticResource enumRadioButtonConverter}, ConverterParameter=Large}"/>
+					</StackPanel>
+				</mxe:GroupBox>
+
+                <mxe:GroupBox Header="Column Count" Classes="PropertiesGroup">
+                    <StackPanel>
+                        <RadioButton Content="100" GroupName="ColumnsCount" Classes="PropertyEditor"
+									 IsChecked="{Binding SelectedColumnsCount, Converter={StaticResource enumRadioButtonConverter}, ConverterParameter=Small}"/>
+                        <RadioButton Content="500" GroupName="ColumnsCount" Classes="PropertyEditor"
+									 IsChecked="{Binding SelectedColumnsCount, Converter={StaticResource enumRadioButtonConverter}, ConverterParameter=Medium}"/>
+                        <RadioButton Content="1 000" GroupName="ColumnsCount" Classes="PropertyEditor"
+									 IsChecked="{Binding SelectedColumnsCount, Converter={StaticResource enumRadioButtonConverter}, ConverterParameter=Large}"/>
+                    </StackPanel>
+                </mxe:GroupBox>
+
+				<Button Content="Generate" Command="{Binding GenerateCommand}" Classes="LayoutItem" HorizontalAlignment="Center"/>
+			</StackPanel>
+		</Border>
+	</Grid>
+	
+</UserControl>

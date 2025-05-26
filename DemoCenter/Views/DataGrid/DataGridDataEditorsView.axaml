@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:data="clr-namespace:DemoCenter.DemoData"
+			 xmlns:mxdg="https://schemas.eremexcontrols.net/avalonia/datagrid"
+			 xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+			 xmlns:mx="https://schemas.eremexcontrols.net/avalonia"
+			 xmlns:mxdc="clr-namespace:Eremex.AvaloniaUI.Controls.DataControl;assembly=Eremex.Avalonia.Controls"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DemoCenter.Views.DataGridDataEditorsView">
+    
+    <Grid ColumnDefinitions="*, 250">
+	    <Border x:Name="DemoControl">
+			<mxdg:DataGridControl x:Name="dataGrid" ItemsSource="{Binding Employees}" BorderThickness="0,0,1,0">
+			<mxdg:GridColumn FieldName="FirstName" Width="*" MinWidth="80"/>
+			<mxdg:GridColumn FieldName="LastName" Width="*" MinWidth="80"/>
+			<mxdg:GridColumn FieldName="HireDate" Width="*" MinWidth="80">
+				<mxdg:GridColumn.EditorProperties>
+					<mxe:DateEditorProperties/>
+				</mxdg:GridColumn.EditorProperties>
+			</mxdg:GridColumn>
+			<mxdg:GridColumn FieldName="Experience" Width="80" MinWidth="80">
+				<mxdg:GridColumn.EditorProperties>
+					<mxe:SpinEditorProperties Increment="0.5"/>
+				</mxdg:GridColumn.EditorProperties>
+			</mxdg:GridColumn>
+			<mxdg:GridColumn FieldName="Position" Width="*" MinWidth="150">
+				<mxdg:GridColumn.EditorProperties>
+					<mxe:ComboBoxEditorProperties ItemsSource="{Binding Source={x:Static data:EmployeesData.Positions}}" IsTextEditable="False"/>
+				</mxdg:GridColumn.EditorProperties>
+			</mxdg:GridColumn>
+			<mxdg:GridColumn FieldName="EmploymentType" Width="*" MinWidth="150">
+				<mxdg:GridColumn.EditorProperties>
+					<mxe:ComboBoxEditorProperties ItemsSource="{mx:EnumItemsSource EnumType=data:EmploymentType}"/>
+				</mxdg:GridColumn.EditorProperties>
+			</mxdg:GridColumn>
+			<mxdg:GridColumn FieldName="BirthDate" Width="*" MinWidth="80">
+				<mxdg:GridColumn.EditorProperties>
+					<mxe:DateEditorProperties/>
+				</mxdg:GridColumn.EditorProperties>
+			</mxdg:GridColumn>
+			<mxdg:GridColumn FieldName="Married" Width="80" MinWidth="80"/>
+        </mxdg:DataGridControl>
+	    </Border>
+
+        <Border Grid.Column="1">
+            <mxe:GroupBox Header="Properties" Classes="PropertiesGroup">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="3*, *">
+                    <mxe:CheckEditor Content="Allow Editing" IsChecked="{Binding #dataGrid.AllowEditing}" Classes="PropertyEditor"/>
+                    <Label Grid.Row="1" Content="Editor Show Mode" DockPanel.Dock="Top" Classes="PropertyLabel" IsEnabled="{Binding #dataGrid.AllowEditing}"/>
+                    <mxe:ComboBoxEditor ItemsSource="{mx:EnumItemsSource EnumType=mxdc:EditorShowMode}"
+                                        EditorValue="{Binding #dataGrid.EditorShowMode}"
+                                        IsEnabled="{Binding #dataGrid.AllowEditing}"
+                                        Grid.Row="2"
+                                        Classes="PropertyEditor"/>
+                    <Label Grid.Row="3" Content="Editor Button Show Mode" IsEnabled="{Binding #dataGrid.AllowEditing}" Classes="PropertyLabel"/>
+                    <mxe:ComboBoxEditor ItemsSource="{mx:EnumItemsSource EnumType=mxdc:EditorButtonShowMode}"
+                                        EditorValue="{Binding #dataGrid.EditorButtonShowMode}"
+                                        IsEnabled="{Binding #dataGrid.AllowEditing}"
+                                        Grid.Row="4"
+                                        Classes="PropertyEditor"/>
+                </Grid>
+            </mxe:GroupBox>
+        </Border>
+    </Grid>
+</UserControl>

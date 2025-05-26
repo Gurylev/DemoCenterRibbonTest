@@ -1,0 +1,218 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="DemoData\csv\**" />
+    <AvaloniaXaml Remove="Views\Tools\Templates\svgXamlExample.axaml" />
+    <Compile Remove="Views\Tools\Templates\svgCodeExample.cs" />
+    <EmbeddedResource Include="Resources\Highlighters\Axaml-Highlight-Dark.xshd" />
+    <EmbeddedResource Include="Resources\Highlighters\Axaml-Highlight-Light.xshd" />
+    <EmbeddedResource Include="Resources\Highlighters\CSharp-Highlight-Dark.xshd" />
+    <EmbeddedResource Include="Resources\Highlighters\CSharp-Highlight-Light.xshd" />
+    <Resource Include="Views\Tools\Templates\svgCodeExample.cs" />
+    <Resource Include="Views\Tools\Templates\svgXamlExample.axaml" />
+    <None Remove="DemoData\csv\stockProducts.csv" />
+    <None Remove="Resources\Axaml-Highlight-Dark.xshd" />
+    <None Remove="Resources\Axaml-Highlight-Light.xshd" />
+    <None Remove="Resources\CSharp-Highlight-Dark.xshd" />
+    <None Remove="Resources\CSharp-Highlight-Light.xshd" />
+    <None Remove="Resources\Svg\Ring.svg" />
+    <AvaloniaResource Include="Resources\Svg\Ring.svg" />
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianCandlestickAggregationView.axaml.cs">
+      <DependentUpon>CartesianCandlestickAggregationView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CommonControls\MessageBoxPageView.axaml.cs">
+      <DependentUpon>MessageBoxPageView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Graphics3DControl\Graphics3DControlOverviewView.axaml.cs">
+      <DependentUpon>Graphics3DControlOverviewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Graphics3DControl\Graphics3DControlSimpleMaterialsView.axaml.cs">
+      <DependentUpon>Graphics3DControlSimpleMaterialView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Graphics3DControl\Graphics3DControlTexturedMaterialsView.axaml.cs">
+      <DependentUpon>Graphics3DControlTexturedMaterialsView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Graphics3DControl\Graphics3DControlLinesView.axaml.cs">
+      <DependentUpon>Graphics3DControlLinesView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Graphics3DControl\Graphics3DControlPointsView.axaml.cs">
+      <DependentUpon>Graphics3DControlPointsView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Graphics3DControl\Graphics3DControlTransformationView.axaml.cs">
+      <DependentUpon>Graphics3DControlTransformationView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+    
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" />
+    <PackageReference Include="System.Net.Http" />
+    <PackageReference Include="System.Text.RegularExpressions" />
+
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+    <PackageReference Include="Avalonia.ReactiveUI" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
+    <PackageReference Include="Avalonia.Svg.Skia" />
+    <PackageReference Include="Eremex.Avalonia.Controls3D" />
+    <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJsonVersion)" />
+    <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <PackageReference Include="System.IO.Compression.ZipFile" />
+    <PackageReference Include="System.Resources.Extensions" Version="$(SystemResourcesExtensionsVersion)" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
+    <PackageReference Include="AvaloniaEdit.TextMate" />
+    <PackageReference Include="TextMateSharp.Grammars" />
+    <PackageReference Include="Eremex.Avalonia.Controls" />
+    <PackageReference Include="Eremex.Avalonia.Themes.DeltaDesign" />
+    <PackageReference Include="STLDotNet6.Formats.StereoLithography" />
+    <PackageReference Include="JeremyAnsel.Media.WavefrontObj" />    
+  </ItemGroup>
+    
+  <ItemGroup>
+    <AvaloniaXaml Update="Views\DataGrid\DataGridMultipleSelectionPageView.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+    
+  <ItemGroup>
+    <Compile Update="Views\Charts\CartesianChartLogarithmicScalePageView.axaml.cs">
+      <DependentUpon>CartesianChartLogarithmicScalePageView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DataGrid\DataGridDragDropPageView.axaml.cs">
+      <DependentUpon>DataGridDragDropPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DataGrid\DataGridMultipleSelectionPageView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>DataGridMultipleSelectionPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DataGrid\DataGridLiveDataPageView.axaml.cs">
+      <DependentUpon>DataGridLiveDataPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DataGrid\DataGridFilteringView.axaml.cs">
+      <DependentUpon>DataGridFilteringView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DataGrid\DataGridValidationView.axaml.cs">
+      <DependentUpon>DataGridValidationView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DataGrid\DataGridRowAutoHeightView.axaml.cs">
+      <DependentUpon>DataGridRowAutoHeightView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TreeList\TreeListMultipleSelectionPageView.axaml.cs">
+      <DependentUpon>TreeListMultipleSelectionPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianPointSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianPointSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianLineSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianLineSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianAreaSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianAreaSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianScatterLineSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianScatterLineSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianStepLineSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianStepLineSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianStepAreaSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianStepAreaSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianRangeAreaSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianRangeAreaSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianSideBySideBarSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianSideBySideBarSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\CartesianSideBySideRangeBarSeriesViewView.axaml.cs">
+      <DependentUpon>CartesianSideBySideRangeBarSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\PolarStripsAndConstantLinesView.axaml.cs">
+      <DependentUpon>PolarStripsAndConstantLinesView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\PolarPointSeriesViewView.axaml.cs">
+      <DependentUpon>PolarPointSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\PolarLineSeriesViewView.axaml.cs">
+      <DependentUpon>PolarLineSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\PolarAreaSeriesViewView.axaml.cs">
+      <DependentUpon>PolarAreaSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\PolarScatterLineSeriesViewView.axaml.cs">
+      <DependentUpon>PolarScatterLineSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\PolarRangeAreaSeriesViewView.axaml.cs">
+      <DependentUpon>PolarRangeAreaSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\SmithPointSeriesViewView.axaml.cs">
+      <DependentUpon>SmithPointSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Charts\SmithLineSeriesViewView.axaml.cs">
+      <DependentUpon>SmithLineSeriesViewView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Resources\SvgIconsBrowserViewResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SvgIconsBrowserViewResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+    
+  <ItemGroup>
+    <Folder Include="Resources\Graphics3D\Textures\" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="SourceCode" BeforeTargets="PreBuildEvent">
+    <ItemGroup>
+      <EmbeddedResource Include="Views\**" />
+      <EmbeddedResource Include="ViewModels\**" />
+      <EmbeddedResource Include="Resources\Png\**" />
+      <EmbeddedResource Include="Resources\Graphics3D\**" />
+    </ItemGroup>
+  </Target>
+    
+</Project>

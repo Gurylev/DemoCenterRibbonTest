@@ -1,0 +1,60 @@
+<UserControl x:Class="DemoCenter.Views.ProgressBarPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:vm="using:DemoCenter.ViewModels"
+             d:DesignHeight="500"
+             d:DesignWidth="800"
+             x:DataType="vm:ProgressBarPageViewModel"
+             mc:Ignorable="d">
+	<Design.DataContext>
+        <vm:ProgressBarPageViewModel />
+	</Design.DataContext>
+
+    <Grid ColumnDefinitions="*, 250">
+        <ContentControl x:Name="DemoControl" Classes="DemoUserControl">
+            <Grid RowDefinitions="Auto, 30, Auto"
+                  HorizontalAlignment="Center"
+                  MinWidth="400">
+                <ProgressBar x:Name="HorizontalProgressBar" HorizontalAlignment="Stretch"
+                             IsIndeterminate="{Binding #IsIndeterminateSelector.IsChecked}"
+                             ShowProgressText="{Binding #ShowProgressTextSelector.IsChecked}"
+                             Minimum="{Binding #MinimumSelector.Value}"
+                             Maximum="{Binding #MaximumSelector.Value}"
+                             Value="{Binding #ValueSelector.Value}"
+                             ProgressTextFormat="{Binding SelectedTextFormat}"
+                             MinHeight="16"/>
+                <ProgressBar x:Name="VerticalProgressBar" Grid.Row="2"
+                             Height="340" HorizontalAlignment="Center" Orientation="Vertical"
+                             IsIndeterminate="{Binding #IsIndeterminateSelector.IsChecked}"
+                             ShowProgressText="{Binding #ShowProgressTextSelector.IsChecked}"
+                             Minimum="{Binding #MinimumSelector.Value}"
+                             Maximum="{Binding #MaximumSelector.Value}"
+                             Value="{Binding #ValueSelector.Value}"
+                             ProgressTextFormat="{Binding SelectedTextFormat}"
+                             MinWidth="16"/>
+            </Grid>  
+        </ContentControl>
+        <!--Options-->
+        <StackPanel Grid.Column="1">
+            <mxe:GroupBox Header="Properties" Classes="PropertiesGroup">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="3*, *">
+                    <mxe:CheckEditor x:Name="ShowProgressTextSelector" Content="Show Progress Text" IsChecked="True" Classes="PropertyEditor"/>
+                    <mxe:CheckEditor Grid.Row="1" x:Name="IsIndeterminateSelector" Content="Indeterminate" Classes="PropertyEditor"/>
+                    <Label Grid.Row="2" Content="Maximum" Classes="PropertyLabel"/>
+                    <mxe:SpinEditor Grid.Row="3" x:Name="MaximumSelector" Value="100" HorizontalContentAlignment="Left" Classes="PropertyEditor"/>
+                    <Label Grid.Row="4" Content="Value" Classes="PropertyLabel"/>
+                    <mxe:SpinEditor Grid.Row="5" x:Name="ValueSelector" Value="41" HorizontalContentAlignment="Left" Classes="PropertyEditor"/>
+                    <Label Grid.Row="6" Content="Minimum" Classes="PropertyLabel"/>
+                    <mxe:SpinEditor Grid.Row="7" x:Name="MinimumSelector" HorizontalContentAlignment="Left" Classes="PropertyEditor"/>
+                    <Label Grid.Row="8" Content="Text Format" Classes="PropertyLabel"/>                        
+                    <mxe:ComboBoxEditor Grid.Row="9" x:Name="ProgressTextFormatSelector" HorizontalContentAlignment="Left"
+                                        ItemsSource="{Binding Formats}"
+                                        SelectedItem="{Binding SelectedTextFormat, Mode=TwoWay}" Classes="PropertyEditor"/>
+                </Grid>
+            </mxe:GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

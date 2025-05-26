@@ -1,0 +1,64 @@
+<UserControl x:Class="DemoCenter.Views.BarsOverviewPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxb="https://schemas.eremexcontrols.net/avalonia/bars"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:mxi="https://schemas.eremexcontrols.net/avalonia/icons"
+             xmlns:vm="using:DemoCenter.ViewModels"
+             d:DesignHeight="700"
+             d:DesignWidth="800"
+             x:DataType="vm:BarsOverviewPageViewModel"
+             mc:Ignorable="d">
+    <Design.DataContext>
+        <vm:BarsOverviewPageViewModel />
+    </Design.DataContext>
+
+    <Grid Width="440" Height="640" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0">
+        <mxb:ToolbarManager IsWindowManager="True" x:Name="DemoControl">
+            <Grid RowDefinitions="Auto, 400, Auto" ColumnDefinitions="Auto, *, Auto">
+                <mxb:ToolbarContainerControl DockType="Top" Grid.ColumnSpan="3">
+                    <mxb:Toolbar DisplayMode="MainMenu">
+                        <mxb:ToolbarMenuItem Header="Menu"/>
+                        <mxb:ToolbarMenuItem Header="File"/>
+                        <mxb:ToolbarMenuItem Header="Options" Alignment="Far"/>
+                    </mxb:Toolbar>
+                    <mxb:Toolbar x:Name="FileToolbar" ShowCustomizationButton="False" AllowDragToolbar="False" StretchToolbar="True">
+                        <mxb:ToolbarButtonItem Header="New" Glyph="{x:Static mxi:Basic.Doc_Add}" GlyphSize="48,48"/>
+                        <mxb:ToolbarEditorItem EditorWidth="200" EditorValue="Editor item">
+                            <mxb:ToolbarEditorItem.EditorProperties>
+                                <mxe:ButtonEditorProperties HorizontalContentAlignment="Center"/>
+                            </mxb:ToolbarEditorItem.EditorProperties>
+                        </mxb:ToolbarEditorItem>
+
+                        <mxb:ToolbarButtonItem x:Name="ButtonDropDownItem"
+                                               Header="Save"
+                                               Glyph="{x:Static mxi:Basic.Save}" GlyphSize="48,48">
+                            <mxb:ToolbarButtonItem.DropDownControl>
+                                <mxb:PopupMenu>
+                                    <mxb:ToolbarButtonItem Header="Save All" Glyph="{x:Static mxi:Basic.Save_All}" GlyphSize="32,32"/>
+                                    <mxb:ToolbarButtonItem Header="Save 3D model" Glyph="{x:Static mxi:Basic.Save}" GlyphSize="32,32"/>
+                                </mxb:PopupMenu>
+                            </mxb:ToolbarButtonItem.DropDownControl>
+                        </mxb:ToolbarButtonItem>
+                        <mxb:ToolbarButtonItem Header="Clear" Glyph="{x:Static mxi:Basic.Table_Clear}" GlyphSize="48,48"/>
+                    </mxb:Toolbar>
+                </mxb:ToolbarContainerControl>           
+                <mxb:ToolbarContainerControl Grid.Row="1" DockType="Left"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="See product pages for details." 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="16"/>
+                <mxb:ToolbarContainerControl Grid.Row="1" Grid.Column="2" DockType="Right"/>
+                <mxb:ToolbarContainerControl Grid.Row="2" Grid.ColumnSpan="3" DockType="Bottom">
+                    <mxb:Toolbar DisplayMode="StatusBar" x:Name="StatusBar" ShowCustomizationButton="False">
+                        <mxb:ToolbarTextItem ShowBorder="False"
+                         Glyph="{x:Static mxi:Basic.Info}"
+                         GlyphSize="32,32"/>
+                        <mxb:ToolbarTextItem Header="Status Bar" ShowBorder="False" Alignment="Far"/>
+                    </mxb:Toolbar>
+                </mxb:ToolbarContainerControl>
+            </Grid>
+        </mxb:ToolbarManager>
+    </Grid>
+</UserControl>

@@ -1,0 +1,71 @@
+<UserControl x:Class="DemoCenter.Views.SplitContainerControlPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mxe="https://schemas.eremexcontrols.net/avalonia/editors"
+             xmlns:mx="https://schemas.eremexcontrols.net/avalonia"
+             xmlns:vm="using:DemoCenter.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="vm:SplitContainerControlPageViewModel"
+             mc:Ignorable="d">
+	<Design.DataContext>
+        <vm:SplitContainerControlPageViewModel />
+	</Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="mxe|SplitContainerControl">
+            <Setter Property="BorderThickness" Value="{StaticResource EditorBorderThickness}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Outline/Neutral/Transparent/Medium}"/>
+        </Style>
+        <Style Selector="Label.ContentLabel">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="*, 250">
+        <ContentControl x:Name="DemoControl" Classes="DemoUserControl" VerticalContentAlignment="Stretch">
+            <Grid RowDefinitions="*, 40, *" Margin="0,40">
+                <mxe:SplitContainerControl Width="400"
+                                           IsCollapsed="{Binding IsChecked, ElementName=IsCollapsedSelector}"
+                                           IsSplitterVisible="{Binding IsChecked, ElementName=IsSplitterVisibleSelector}"
+                                           CollapsePanel="{Binding CollapsedPanel}"
+                                           Panel1Length="250">
+                    <mxe:SplitContainerControl.Panel1>
+                        <Label Classes="ContentLabel" Content="Panel 1"/>
+                    </mxe:SplitContainerControl.Panel1>
+                    <mxe:SplitContainerControl.Panel2>
+                        <Label Classes="ContentLabel" Content="Panel 2"/>
+                    </mxe:SplitContainerControl.Panel2>
+                </mxe:SplitContainerControl>
+                <mxe:SplitContainerControl Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch"
+                                           IsCollapsed="{Binding IsChecked, ElementName=IsCollapsedSelector}"
+                                           IsSplitterVisible="{Binding IsChecked, ElementName=IsSplitterVisibleSelector}"
+                                           CollapsePanel="{Binding CollapsedPanel}"
+                                           Panel2Length="2*">
+                    <mxe:SplitContainerControl.Panel1>
+                        <Label Classes="ContentLabel" Content="Panel 1"/>
+                    </mxe:SplitContainerControl.Panel1>
+                    <mxe:SplitContainerControl.Panel2>
+                        <Label Classes="ContentLabel" Content="Panel 2"/>
+                    </mxe:SplitContainerControl.Panel2>
+                </mxe:SplitContainerControl>
+            </Grid>            
+        </ContentControl>
+
+        <!--Options-->
+        <StackPanel Grid.Column="1">
+            <mxe:GroupBox Header="Properties"  Classes="PropertiesGroup">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="3*, *">
+                    <mxe:CheckEditor x:Name="IsCollapsedSelector" Content="IsCollapsed" Classes="PropertyEditor"/>
+                    <mxe:CheckEditor Grid.Row="1" x:Name="IsSplitterVisibleSelector" Content="Is Splitter Visible" IsChecked="True" Classes="PropertyEditor"/>
+                    <Label Grid.Row="2" Content="Collapsed Panel" Classes="PropertyLabel"/>
+                    <mxe:ComboBoxEditor Grid.Row="3" EditorValue="{Binding CollapsedPanel, Mode=TwoWay}" ItemsSource="{mx:EnumItemsSource EnumType=mxe:SplitContainerControlCollapsePanel}"
+                                        Classes="PropertyEditor"/>
+                </Grid>
+            </mxe:GroupBox>
+        </StackPanel>
+    </Grid>   
+</UserControl>
